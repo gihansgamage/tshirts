@@ -188,12 +188,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const s2Label = document.getElementById("couple-s2-color-label");
 
     if (s1Img && s1Obj) {
-      s1Img.src = s1Obj.image;
-      s1Img.alt = `${s1Obj.name} T-Shirt`;
+      s1Img.src = s1Obj.girlImage || s1Obj.flatImage;
+      s1Img.alt = `Partner 1 (Girl) in ${s1Obj.name} T-Shirt`;
     }
     if (s2Img && s2Obj) {
-      s2Img.src = s2Obj.image;
-      s2Img.alt = `${s2Obj.name} T-Shirt`;
+      s2Img.src = s2Obj.boyImage || s2Obj.flatImage;
+      s2Img.alt = `Partner 2 (Boy) in ${s2Obj.name} T-Shirt`;
     }
     if (s1Label && s1Obj) s1Label.textContent = s1Obj.name;
     if (s2Label && s2Obj) s2Label.textContent = s2Obj.name;
@@ -205,8 +205,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const nameColorLabel = document.getElementById("name-color-label");
 
     if (nameImg && colObj) {
-      nameImg.src = colObj.image;
-      nameImg.alt = `${colObj.name} T-Shirt`;
+      nameImg.src = colObj.boyImage || colObj.girlImage || colObj.flatImage;
+      nameImg.alt = `Custom ${colObj.name} T-Shirt 3D Mockup`;
     }
     if (nameColorLabel && colObj) {
       nameColorLabel.textContent = colObj.name;

@@ -304,26 +304,22 @@ body {
 
 .tshirt-preview-img {
   width: 100%;
-  max-width: 220px;
-  aspect-ratio: 1 / 1.1;
+  max-width: 240px;
+  aspect-ratio: 1 / 1.05;
   object-fit: contain;
-  border-radius: var(--radius-sm);
-  background-color: #FFFFFF;
-  padding: 8px;
-  border: 1px solid var(--border-light);
-  transition: opacity var(--transition);
+  border-radius: var(--radius-md);
+  background-color: transparent;
+  padding: 4px;
+  transition: opacity var(--transition), transform var(--transition);
 }
 
-.single-image-box {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.model-3d-img {
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.08));
 }
 
 .single-image-box .tshirt-preview-img {
-  max-width: 280px;
-  aspect-ratio: 1 / 1.15;
+  max-width: 290px;
+  aspect-ratio: 1 / 1.05;
 }
 
 /* Form Controls */

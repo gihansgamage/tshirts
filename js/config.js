@@ -18,56 +18,70 @@ const CONFIG = {
     enableLocalBackup: true,
   },
 
-  // Color Swatches mapped to t-shirts folder
+  // Color Swatches mapped to 3D models & t-shirts folder
   colors: [
     {
       id: "white",
       name: "White",
       hex: "#FFFFFF",
       border: "#CBD5E1",
-      image: "t-shirts/white.jpeg"
+      girlImage: "assets/3d-models/girl/white.png",
+      boyImage: "assets/3d-models/boy/white.png",
+      flatImage: "t-shirts/white.jpeg"
     },
     {
       id: "black",
       name: "Black",
       hex: "#18181B",
       border: "#27272A",
-      image: "t-shirts/black.jpeg"
+      girlImage: "assets/3d-models/girl/black.png",
+      boyImage: "assets/3d-models/boy/black.png",
+      flatImage: "t-shirts/black.jpeg"
     },
     {
       id: "light_blue",
       name: "Light Blue",
       hex: "#93C5FD",
       border: "#60A5FA",
-      image: "t-shirts/light_blue.jpeg"
+      girlImage: "assets/3d-models/girl/light_blue.png",
+      boyImage: "assets/3d-models/boy/light_blue.png",
+      flatImage: "t-shirts/light_blue.jpeg"
     },
     {
       id: "light_green",
       name: "Light Green",
       hex: "#86EFAC",
       border: "#4ADE80",
-      image: "t-shirts/light_green.jpeg"
+      girlImage: "assets/3d-models/girl/light_green.png",
+      boyImage: "assets/3d-models/boy/light_green.png",
+      flatImage: "t-shirts/light_green.jpeg"
     },
     {
       id: "light_pink",
-      name: "Light Pink",
+      name: "Pastel Pink",
       hex: "#F9A8D4",
       border: "#F472B6",
-      image: "t-shirts/light_pink.jpeg"
+      girlImage: "assets/3d-models/girl/light_pink.png",
+      boyImage: "assets/3d-models/boy/light_pink.png",
+      flatImage: "t-shirts/light_pink.jpeg"
     },
     {
       id: "light_purple",
-      name: "Light Purple",
+      name: "Lavender",
       hex: "#C4B5FD",
       border: "#A78BFA",
-      image: "t-shirts/light_purple.jpeg"
+      girlImage: "assets/3d-models/girl/light_purple.png",
+      boyImage: "assets/3d-models/boy/light_purple.png",
+      flatImage: "t-shirts/light_purple.jpeg"
     },
     {
       id: "light_yellow",
       name: "Light Yellow",
       hex: "#FDE047",
       border: "#FACC15",
-      image: "t-shirts/light_yellow.jpeg"
+      girlImage: "assets/3d-models/girl/light_yellow.png",
+      boyImage: "assets/3d-models/boy/light_yellow.png",
+      flatImage: "t-shirts/light_yellow.jpeg"
     }
   ],
 
