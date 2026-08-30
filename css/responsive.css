@@ -56,17 +56,25 @@
     font-size: 1.35rem;
   }
 
-  .couple-images-row {
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
+  .couple-images-row.couple-close-pair {
+    max-width: 360px;
   }
 
-  .image-preview-label {
-    font-size: 0.7rem;
+  .couple-girl-img, .couple-boy-img {
+    width: 58%;
+    max-width: 200px;
   }
 
-  .tshirt-preview-img {
-    padding: 4px;
+  .couple-girl-img {
+    transform: translateX(22px);
+  }
+
+  .couple-boy-img {
+    transform: translateX(-22px);
+  }
+
+  .single-preview-img {
+    max-width: 260px;
   }
 
   .form-grid-2 {
@@ -105,12 +113,6 @@
   .footer-nav {
     flex-wrap: wrap;
     justify-content: center;
-  }
-}
-
-@media (max-width: 380px) {
-  .couple-images-row {
-    grid-template-columns: 1fr;
   }
 }
 

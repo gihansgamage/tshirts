@@ -235,22 +235,21 @@ body {
 /* Package Card Body - Horizontal 2 Columns within each row */
 .package-card-body {
   display: grid;
-  grid-template-columns: 1fr 1.15fr;
+  grid-template-columns: 1.15fr 1fr;
   gap: 36px;
-  align-items: stretch;
+  align-items: center;
 }
 
-/* Image Display Area */
+/* Image Display Area (Transparent background, larger size) */
 .package-image-container {
-  background-color: var(--bg-subtle);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  padding: 24px;
+  background: transparent;
+  border: none;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
-  min-height: 380px;
+  min-height: 400px;
 }
 
 .package-controls-container {
@@ -259,33 +258,33 @@ body {
   justify-content: center;
 }
 
+/* Couple Closely Overlapping Pair */
 .couple-images-row.couple-close-pair {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0;
   width: 100%;
-  max-width: 440px;
+  max-width: 540px;
   margin: 0 auto;
   position: relative;
 }
 
 .couple-girl-img, .couple-boy-img {
-  width: 52%;
-  max-width: 230px;
+  width: 58%;
+  max-width: 300px;
   aspect-ratio: 1 / 1.05;
   object-fit: contain;
-  transition: opacity var(--transition);
+  transition: transform var(--transition), opacity var(--transition);
 }
 
 .couple-girl-img {
-  transform: translateX(10px);
-  z-index: 1;
+  transform: translateX(38px);
+  z-index: 2;
 }
 
 .couple-boy-img {
-  transform: translateX(-10px);
-  z-index: 2;
+  transform: translateX(-38px);
+  z-index: 1;
 }
 
 .single-center-box {
@@ -296,14 +295,14 @@ body {
 }
 
 .single-preview-img {
-  max-width: 300px;
+  max-width: 360px;
   width: 100%;
   aspect-ratio: 1 / 1.05;
   object-fit: contain;
 }
 
 .model-3d-img {
-  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.08));
+  filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.12));
 }
 
 /* Form Controls */
