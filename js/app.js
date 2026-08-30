@@ -3,7 +3,7 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // State for Couple T-Shirt Package
+  // State for Couple T-Shirt Package (Same matching color by default)
   const coupleState = {
     packageId: "couple",
     packageName: "Couple T-Shirt",
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     letter2: "S",
     shirt1Color: "light_pink",
     shirt1Size: "M",
-    shirt2Color: "black",
+    shirt2Color: "light_pink",
     shirt2Size: "L"
   };
 
