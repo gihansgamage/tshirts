@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>කොලිටි | Custom & Couple T-Shirt Printing</title>
+  <meta name="description" content="කොලිටි - Custom T-shirt printing in Sri Lanka. Order couple matching initials t-shirts and personalized name printing with direct WhatsApp ordering.">
+
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Sinhala:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-wrapper">
+      <a href="#" class="brand-logo">
+        <span class="brand-logo-badge">Q</span>
+        <span class="brand-name-sinhala">කොලිටි</span>
+      </a>
+
+      <div class="header-actions">
+        <button type="button" class="size-guide-link btn-open-size-guide">Size Chart</button>
+        <a href="https://wa.me/94773248579" target="_blank" rel="noopener" class="header-phone">
+          <span>WhatsApp: +94 77 324 8579</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Introduction & Trust Highlights -->
+  <section class="page-intro">
+    <div class="container">
+      <h1 class="intro-title">Custom T-Shirt Printing</h1>
+      <p class="intro-subtitle">Select your package, configure letters or custom name, choose colors and sizes, and place your order directly via WhatsApp.</p>
+      
+      <!-- Key Business Highlights Bar -->
+      <div class="trust-highlights-bar">
+        <div class="trust-pill">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+          </svg>
+          <span>Free Island-wide Delivery</span>
+        </div>
+        <div class="trust-pill">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+          </svg>
+          <span>Cash on Delivery (COD)</span>
+        </div>
+        <div class="trust-pill">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4.5-9L2 6v2h19V6l-9.5-5z"/>
+          </svg>
+          <span>Bank Transfer Accepted</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Packages Section (2 Full Width Rows) -->
+  <main class="container">
+    <div class="packages-grid">
+
+      <!-- ==========================================
+           PACKAGE 1: Couple T-Shirt (ROW 1)
+           ========================================== -->
+      <section class="package-card" id="package-couple">
+        <div class="package-header">
+          <div class="package-number">Package 1</div>
+          <div class="package-title-row">
+            <h2 class="package-title">Couple T-Shirt</h2>
+            <div class="package-price">Rs. 5,500</div>
+          </div>
+          <p class="package-desc">Set of 2 customized t-shirts with couple name initials, individual color selection, and sizes.</p>
+        </div>
+
+        <div class="package-card-body">
+          <!-- Left Column: Image Previews -->
+          <div class="package-image-container">
+            <div class="couple-images-row">
+              <div class="image-preview-box">
+                <span class="image-preview-label">Partner 1 (<span id="couple-s1-color-label">Light Pink</span>)</span>
+                <img id="couple-s1-img" src="t-shirts/light_pink.jpeg" alt="Partner 1 T-Shirt" class="tshirt-preview-img">
+              </div>
+              <div class="image-preview-box">
+                <span class="image-preview-label">Partner 2 (<span id="couple-s2-color-label">Black</span>)</span>
+                <img id="couple-s2-img" src="t-shirts/black.jpeg" alt="Partner 2 T-Shirt" class="tshirt-preview-img">
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Customization Controls & Buy Button -->
+          <div class="package-controls-container">
+            <!-- Couple First Letters Inputs -->
+            <div class="control-group">
+              <label class="control-label">Couple First Letters</label>
+              <div class="two-letters-row">
+                <div class="letter-field">
+                  <span>Partner 1 Initial</span>
+                  <input type="text" id="couple-letter-1" class="letter-input" maxlength="1" value="A">
+                </div>
+                <div class="letter-field">
+                  <span>Partner 2 Initial</span>
+                  <input type="text" id="couple-letter-2" class="letter-input" maxlength="1" value="S">
+                </div>
+              </div>
+            </div>
+
+            <!-- Partner 1 Color & Size -->
+            <div class="control-group">
+              <div class="control-label">
+                <span>Partner 1 Color</span>
+              </div>
+              <div class="swatches-flex" id="couple-shirt1-swatches"></div>
+              <div style="margin-top: 10px;">
+                <div class="control-label" style="font-size: 0.8rem; margin-bottom: 4px;">
+                  <span>Partner 1 Size</span>
+                  <button type="button" class="size-guide-link btn-open-size-guide">Size Chart</button>
+                </div>
+                <div class="sizes-flex" id="couple-shirt1-sizes"></div>
+              </div>
+            </div>
+
+            <!-- Partner 2 Color & Size -->
+            <div class="control-group">
+              <div class="control-label">
+                <span>Partner 2 Color</span>
+              </div>
+              <div class="swatches-flex" id="couple-shirt2-swatches"></div>
+              <div style="margin-top: 10px;">
+                <div class="control-label" style="font-size: 0.8rem; margin-bottom: 4px;">
+                  <span>Partner 2 Size</span>
+                  <button type="button" class="size-guide-link btn-open-size-guide">Size Chart</button>
+                </div>
+                <div class="sizes-flex" id="couple-shirt2-sizes"></div>
+              </div>
+            </div>
+
+            <!-- Buy Button -->
+            <button type="button" class="btn-buy-whatsapp" id="btn-checkout-couple">
+              <svg viewBox="0 0 24 24" width="18" height="18">
+                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm4.76 11.66c-.26-.13-1.55-.77-1.79-.85-.24-.09-.42-.13-.59.13-.18.26-.68.85-.84 1.02-.15.17-.31.2-.57.07-.26-.13-1.1-.41-2.1-1.3-.77-.69-1.29-1.54-1.44-1.8-.15-.26-.02-.4.11-.53.12-.12.26-.31.39-.46.13-.16.17-.26.26-.44.09-.17.04-.33-.02-.46-.07-.13-.59-1.43-.81-1.95-.21-.52-.43-.45-.59-.46h-.51c-.17 0-.46.07-.7.33-.24.26-.92.9-.92 2.2s.94 2.56 1.07 2.73c.13.17 1.86 2.84 4.51 3.98.63.27 1.12.43 1.51.55.63.2 1.2.17 1.65.1.5-.07 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.06-.11-.23-.17-.49-.3z"/>
+              </svg>
+              <span>Buy Couple Set via WhatsApp</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           PACKAGE 2: Name Printing (ROW 2)
+           ========================================== -->
+      <section class="package-card" id="package-name">
+        <div class="package-header">
+          <div class="package-number">Package 2</div>
+          <div class="package-title-row">
+            <h2 class="package-title">Name Printing</h2>
+            <div class="package-price">Rs. 3,000</div>
+          </div>
+          <p class="package-desc">Single customized t-shirt with your custom name, color selection, and size.</p>
+        </div>
+
+        <div class="package-card-body">
+          <!-- Left Column: Image Preview -->
+          <div class="package-image-container">
+            <div class="single-image-box">
+              <span class="image-preview-label">T-Shirt Color: <span id="name-color-label">White</span></span>
+              <img id="name-preview-img" src="t-shirts/white.jpeg" alt="Name T-Shirt" class="tshirt-preview-img">
+            </div>
+          </div>
+
+          <!-- Right Column: Customization Controls & Buy Button -->
+          <div class="package-controls-container">
+            <!-- Custom Name Input -->
+            <div class="control-group">
+              <label class="control-label" for="name-input-text">Enter Name / Text to Print</label>
+              <input type="text" id="name-input-text" class="text-input" placeholder="e.g. Alex" value="Alex" maxlength="25">
+            </div>
+
+            <!-- T-Shirt Color -->
+            <div class="control-group">
+              <div class="control-label">
+                <span>Select Color</span>
+              </div>
+              <div class="swatches-flex" id="name-color-swatches"></div>
+            </div>
+
+            <!-- T-Shirt Size -->
+            <div class="control-group">
+              <div class="control-label">
+                <span>Select Size</span>
+                <button type="button" class="size-guide-link btn-open-size-guide">Size Chart</button>
+              </div>
+              <div class="sizes-flex" id="name-sizes"></div>
+            </div>
+
+            <!-- Buy Button -->
+            <button type="button" class="btn-buy-whatsapp" id="btn-checkout-name">
+              <svg viewBox="0 0 24 24" width="18" height="18">
+                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm4.76 11.66c-.26-.13-1.55-.77-1.79-.85-.24-.09-.42-.13-.59.13-.18.26-.68.85-.84 1.02-.15.17-.31.2-.57.07-.26-.13-1.1-.41-2.1-1.3-.77-.69-1.29-1.54-1.44-1.8-.15-.26-.02-.4.11-.53.12-.12.26-.31.39-.46.13-.16.17-.26.26-.44.09-.17.04-.33-.02-.46-.07-.13-.59-1.43-.81-1.95-.21-.52-.43-.45-.59-.46h-.51c-.17 0-.46.07-.7.33-.24.26-.92.9-.92 2.2s.94 2.56 1.07 2.73c.13.17 1.86 2.84 4.51 3.98.63.27 1.12.43 1.51.55.63.2 1.2.17 1.65.1.5-.07 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.06-.11-.23-.17-.49-.3z"/>
+              </svg>
+              <span>Buy Name T-Shirt via WhatsApp</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Clean Footer -->
+  <footer class="site-footer">
+    <div class="container footer-wrapper">
+      <div>
+        <strong>කොලිටි</strong> &mdash; Direct WhatsApp Orders (+94 77 324 8579)
+      </div>
+      <div class="footer-nav">
+        <button type="button" class="btn-open-size-guide">Size Chart</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODALS -->
+
+  <!-- 1. Checkout Modal -->
+  <div class="modal-backdrop" id="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="modal-checkout-title">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-checkout-title">Order Details</h3>
+        <button type="button" class="btn-close-modal" id="btn-close-checkout" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        
+        <!-- Summary Box -->
+        <div class="modal-order-summary" id="modal-summary-content">
+          <!-- Dynamically populated from JS -->
+        </div>
+
+        <form id="order-checkout-form">
+          <div class="form-field">
+            <label for="customer-name">Full Name</label>
+            <input type="text" id="customer-name" placeholder="Your name" required>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label for="customer-phone">WhatsApp Number</label>
+              <input type="tel" id="customer-phone" placeholder="077 123 4567" required>
+            </div>
+            <div class="form-field">
+              <label for="customer-city">City / District</label>
+              <input type="text" id="customer-city" placeholder="e.g. Colombo" required>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="customer-address">Delivery Address</label>
+            <textarea id="customer-address" rows="2" placeholder="Street address, house number" required></textarea>
+          </div>
+
+          <div class="form-field">
+            <label for="customer-payment">Preferred Payment Method</label>
+            <select id="customer-payment" class="text-input" style="padding: 10px 12px;">
+              <option value="Cash on Delivery (COD)">Cash on Delivery (COD)</option>
+              <option value="Bank Transfer">Bank Transfer</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="customer-notes">Special Instructions (Optional)</label>
+            <input type="text" id="customer-notes" placeholder="Notes or instructions">
+          </div>
+
+          <button type="submit" class="btn-buy-whatsapp" id="btn-confirm-order">
+            <svg viewBox="0 0 24 24" width="18" height="18">
+              <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm4.76 11.66c-.26-.13-1.55-.77-1.79-.85-.24-.09-.42-.13-.59.13-.18.26-.68.85-.84 1.02-.15.17-.31.2-.57.07-.26-.13-1.1-.41-2.1-1.3-.77-.69-1.29-1.54-1.44-1.8-.15-.26-.02-.4.11-.53.12-.12.26-.31.39-.46.13-.16.17-.26.26-.44.09-.17.04-.33-.02-.46-.07-.13-.59-1.43-.81-1.95-.21-.52-.43-.45-.59-.46h-.51c-.17 0-.46.07-.7.33-.24.26-.92.9-.92 2.2s.94 2.56 1.07 2.73c.13.17 1.86 2.84 4.51 3.98.63.27 1.12.43 1.51.55.63.2 1.2.17 1.65.1.5-.07 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.06-.11-.23-.17-.49-.3z"/>
+            </svg>
+            <span>Confirm & Open WhatsApp</span>
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Size Guide Modal -->
+  <div class="modal-backdrop" id="size-guide-modal" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">T-Shirt Size Guide</h3>
+        <button type="button" class="btn-close-modal" id="btn-close-size-guide" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 16px;">
+          Standard unisex fit measurements.
+        </p>
+        <table class="size-table">
+          <thead>
+            <tr>
+              <th>Size</th>
+              <th>Chest (in)</th>
+              <th>Length (in)</th>
+              <th>Chest (cm)</th>
+              <th>Length (cm)</th>
+            </tr>
+          </thead>
+          <tbody id="size-table-body">
+            <!-- Dynamically populated from JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/sheets.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

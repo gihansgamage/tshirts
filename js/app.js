@@ -1,0 +1,476 @@
+/**
+ * TeeCraft - Professional Order Controller & State Management
+ */
+
+document.addEventListener("DOMContentLoaded", () => {
+  // State for Couple T-Shirt Package
+  const coupleState = {
+    packageId: "couple",
+    packageName: "Couple T-Shirt",
+    price: CONFIG.packages.couple.price,
+    letter1: "A",
+    letter2: "S",
+    shirt1Color: "light_pink",
+    shirt1Size: "M",
+    shirt2Color: "black",
+    shirt2Size: "L"
+  };
+
+  // State for Name Printing Package
+  const nameState = {
+    packageId: "name",
+    packageName: "Name Printing",
+    price: CONFIG.packages.name.price,
+    name: "Alex",
+    color: "white",
+    size: "L"
+  };
+
+  // Active checkout package tracker
+  let activeCheckoutPackage = "couple";
+
+  // Init UI Components
+  initColorSwatches();
+  initSizeSelectors();
+  initInputs();
+  initCheckoutModal();
+  initSizeGuideModal();
+
+  // Initial images update
+  updateCoupleImages();
+  updateNameImage();
+
+  /**
+   * Color Swatches Generator & Click Listeners
+   */
+  function initColorSwatches() {
+    // 1. Couple Shirt 1 Swatches
+    renderSwatches("couple-shirt1-swatches", "couple-s1", (colorId) => {
+      coupleState.shirt1Color = colorId;
+      updateCoupleImages();
+    });
+
+    // 2. Couple Shirt 2 Swatches
+    renderSwatches("couple-shirt2-swatches", "couple-s2", (colorId) => {
+      coupleState.shirt2Color = colorId;
+      updateCoupleImages();
+    });
+
+    // 3. Name Printing Swatches
+    renderSwatches("name-color-swatches", "name-s", (colorId) => {
+      nameState.color = colorId;
+      updateNameImage();
+    });
+  }
+
+  function renderSwatches(containerId, groupKey, onSelect) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = "";
+
+    CONFIG.colors.forEach(col => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = `color-circle group-${groupKey}`;
+      btn.dataset.colorId = col.id;
+      btn.title = col.name;
+      btn.style.backgroundColor = col.hex;
+      btn.innerHTML = `<span class="circle-check">✓</span>`;
+
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(`.color-circle.group-${groupKey}`).forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        onSelect(col.id);
+      });
+
+      container.appendChild(btn);
+    });
+
+    // Set initial active swatch
+    if (groupKey === "couple-s1") setActiveSwatch(groupKey, coupleState.shirt1Color);
+    if (groupKey === "couple-s2") setActiveSwatch(groupKey, coupleState.shirt2Color);
+    if (groupKey === "name-s") setActiveSwatch(groupKey, nameState.color);
+  }
+
+  function setActiveSwatch(groupKey, colorId) {
+    const btn = document.querySelector(`.color-circle.group-${groupKey}[data-color-id="${colorId}"]`);
+    if (btn) btn.classList.add("active");
+  }
+
+  /**
+   * Size Selectors Generator & Click Listeners
+   */
+  function initSizeSelectors() {
+    // 1. Couple Shirt 1 Sizes
+    renderSizes("couple-shirt1-sizes", "couple-s1-size", (size) => {
+      coupleState.shirt1Size = size;
+    }, coupleState.shirt1Size);
+
+    // 2. Couple Shirt 2 Sizes
+    renderSizes("couple-shirt2-sizes", "couple-s2-size", (size) => {
+      coupleState.shirt2Size = size;
+    }, coupleState.shirt2Size);
+
+    // 3. Name Printing Sizes
+    renderSizes("name-sizes", "name-size", (size) => {
+      nameState.size = size;
+    }, nameState.size);
+  }
+
+  function renderSizes(containerId, groupKey, onSelect, initialSize) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = "";
+
+    CONFIG.sizes.forEach(size => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = `size-btn group-${groupKey} ${size === initialSize ? "active" : ""}`;
+      btn.textContent = size;
+
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(`.size-btn.group-${groupKey}`).forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        onSelect(size);
+      });
+
+      container.appendChild(btn);
+    });
+  }
+
+  /**
+   * Text & Letters Inputs
+   */
+  function initInputs() {
+    const l1Input = document.getElementById("couple-letter-1");
+    const l2Input = document.getElementById("couple-letter-2");
+    const nameInput = document.getElementById("name-input-text");
+
+    if (l1Input) {
+      l1Input.addEventListener("input", (e) => {
+        coupleState.letter1 = (e.target.value || "").toUpperCase().slice(0, 1);
+      });
+    }
+
+    if (l2Input) {
+      l2Input.addEventListener("input", (e) => {
+        coupleState.letter2 = (e.target.value || "").toUpperCase().slice(0, 1);
+      });
+    }
+
+    if (nameInput) {
+      nameInput.addEventListener("input", (e) => {
+        nameState.name = (e.target.value || "").trim();
+      });
+    }
+  }
+
+  /**
+   * Update Image Previews cleanly upon color change
+   */
+  function updateCoupleImages() {
+    const s1Obj = getColor(coupleState.shirt1Color);
+    const s2Obj = getColor(coupleState.shirt2Color);
+
+    const s1Img = document.getElementById("couple-s1-img");
+    const s2Img = document.getElementById("couple-s2-img");
+    const s1Label = document.getElementById("couple-s1-color-label");
+    const s2Label = document.getElementById("couple-s2-color-label");
+
+    if (s1Img && s1Obj) {
+      s1Img.src = s1Obj.image;
+      s1Img.alt = `${s1Obj.name} T-Shirt`;
+    }
+    if (s2Img && s2Obj) {
+      s2Img.src = s2Obj.image;
+      s2Img.alt = `${s2Obj.name} T-Shirt`;
+    }
+    if (s1Label && s1Obj) s1Label.textContent = s1Obj.name;
+    if (s2Label && s2Obj) s2Label.textContent = s2Obj.name;
+  }
+
+  function updateNameImage() {
+    const colObj = getColor(nameState.color);
+    const nameImg = document.getElementById("name-preview-img");
+    const nameColorLabel = document.getElementById("name-color-label");
+
+    if (nameImg && colObj) {
+      nameImg.src = colObj.image;
+      nameImg.alt = `${colObj.name} T-Shirt`;
+    }
+    if (nameColorLabel && colObj) {
+      nameColorLabel.textContent = colObj.name;
+    }
+  }
+
+  function getColor(colorId) {
+    return CONFIG.colors.find(c => c.id === colorId) || CONFIG.colors[0];
+  }
+
+  /**
+   * Checkout Modal & WhatsApp Order Flow
+   */
+  function initCheckoutModal() {
+    const coupleCheckoutBtn = document.getElementById("btn-checkout-couple");
+    const nameCheckoutBtn = document.getElementById("btn-checkout-name");
+    const checkoutModal = document.getElementById("checkout-modal");
+    const closeCheckoutBtn = document.getElementById("btn-close-checkout");
+    const orderForm = document.getElementById("order-checkout-form");
+
+    if (coupleCheckoutBtn) {
+      coupleCheckoutBtn.addEventListener("click", () => {
+        activeCheckoutPackage = "couple";
+        populateModalSummary("couple");
+        openModal(checkoutModal);
+      });
+    }
+
+    if (nameCheckoutBtn) {
+      nameCheckoutBtn.addEventListener("click", () => {
+        activeCheckoutPackage = "name";
+        populateModalSummary("name");
+        openModal(checkoutModal);
+      });
+    }
+
+    if (closeCheckoutBtn) {
+      closeCheckoutBtn.addEventListener("click", () => closeModal(checkoutModal));
+    }
+
+    if (orderForm) {
+      orderForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await handleOrderSubmission();
+      });
+    }
+  }
+
+  function populateModalSummary(pkgType) {
+    const container = document.getElementById("modal-summary-content");
+    if (!container) return;
+
+    if (pkgType === "couple") {
+      const s1Col = getColor(coupleState.shirt1Color).name;
+      const s2Col = getColor(coupleState.shirt2Color).name;
+      container.innerHTML = `
+        <div class="summary-row">
+          <span class="summary-label">Package:</span>
+          <span class="summary-val font-bold">Couple T-Shirt (Set of 2)</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">Initials:</span>
+          <span class="summary-val">${coupleState.letter1 || "A"} & ${coupleState.letter2 || "S"}</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">Partner 1:</span>
+          <span class="summary-val">${s1Col} (Size ${coupleState.shirt1Size})</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">Partner 2:</span>
+          <span class="summary-val">${s2Col} (Size ${coupleState.shirt2Size})</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">Total Price:</span>
+          <span class="summary-val font-bold">${CONFIG.business.currencySymbol} ${coupleState.price.toLocaleString()}</span>
+        </div>
+      `;
+    } else {
+      const col = getColor(nameState.color).name;
+      container.innerHTML = `
+        <div class="summary-row">
+          <span class="summary-label">Package:</span>
+          <span class="summary-val font-bold">Name Printing (1 Shirt)</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">Name / Text:</span>
+          <span class="summary-val">"${nameState.name || "Alex"}"</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">Color & Size:</span>
+          <span class="summary-val">${col} (Size ${nameState.size})</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">Total Price:</span>
+          <span class="summary-val font-bold">${CONFIG.business.currencySymbol} ${nameState.price.toLocaleString()}</span>
+        </div>
+      `;
+    }
+  }
+
+  async function handleOrderSubmission() {
+    const nameInput = document.getElementById("customer-name");
+    const phoneInput = document.getElementById("customer-phone");
+    const addressInput = document.getElementById("customer-address");
+    const cityInput = document.getElementById("customer-city");
+    const paymentInput = document.getElementById("customer-payment");
+    const notesInput = document.getElementById("customer-notes");
+
+    const customerName = nameInput ? nameInput.value.trim() : "";
+    const customerPhone = phoneInput ? phoneInput.value.trim() : "";
+    const customerAddress = addressInput ? addressInput.value.trim() : "";
+    const customerCity = cityInput ? cityInput.value.trim() : "";
+    const paymentMethod = paymentInput ? paymentInput.value : "Cash on Delivery (COD)";
+    const notes = notesInput ? notesInput.value.trim() : "None";
+
+    if (!customerName || !customerPhone || !customerAddress) {
+      showToast("Please fill in all required customer details.");
+      return;
+    }
+
+    const orderId = "TC-" + Math.floor(100000 + Math.random() * 900000);
+    const isCouple = activeCheckoutPackage === "couple";
+
+    // Prepare Google Sheets payload
+    const orderPayload = {
+      orderId: orderId,
+      packageType: isCouple ? "Couple T-Shirt" : "Name Printing",
+      totalPrice: isCouple ? coupleState.price : nameState.price,
+      customerName: customerName,
+      customerPhone: customerPhone,
+      customerAddress: customerAddress,
+      customerCity: customerCity,
+      paymentMethod: paymentMethod,
+      delivery: "Free Delivery",
+      notes: notes,
+      timestamp: new Date().toISOString()
+    };
+
+    if (isCouple) {
+      orderPayload.customText = `Letters: ${coupleState.letter1} & ${coupleState.letter2}`;
+      orderPayload.shirt1Color = getColor(coupleState.shirt1Color).name;
+      orderPayload.shirt1Size = coupleState.shirt1Size;
+      orderPayload.shirt2Color = getColor(coupleState.shirt2Color).name;
+      orderPayload.shirt2Size = coupleState.shirt2Size;
+    } else {
+      orderPayload.customText = `Name: ${nameState.name}`;
+      orderPayload.shirt1Color = getColor(nameState.color).name;
+      orderPayload.shirt1Size = nameState.size;
+      orderPayload.shirt2Color = "-";
+      orderPayload.shirt2Size = "-";
+    }
+
+    // 1. Sync to Google Sheets
+    try {
+      await GoogleSheetsSync.syncOrder(orderPayload);
+    } catch (err) {
+      console.warn("Google Sheets sync:", err);
+    }
+
+    // 2. Generate clean WhatsApp message without emojis
+    const whatsappMsg = buildCleanWhatsAppMessage(orderPayload, isCouple);
+    const whatsappUrl = `https://wa.me/${CONFIG.business.whatsappNumber}?text=${encodeURIComponent(whatsappMsg)}`;
+
+    // Close modal
+    closeModal(document.getElementById("checkout-modal"));
+
+    // Reset form
+    document.getElementById("order-checkout-form").reset();
+
+    // Show toast and redirect
+    showToast("Order recorded. Redirecting to WhatsApp...");
+    setTimeout(() => {
+      window.open(whatsappUrl, "_blank");
+    }, 300);
+  }
+
+  function buildCleanWhatsAppMessage(order, isCouple) {
+    let msg = `NEW T-SHIRT ORDER - ${CONFIG.business.name.toUpperCase()}\n`;
+    msg += `----------------------------------------\n`;
+    msg += `Order ID: ${order.orderId}\n`;
+    msg += `Package: ${order.packageType}\n\n`;
+
+    if (isCouple) {
+      msg += `Initials: ${coupleState.letter1} & ${coupleState.letter2}\n\n`;
+      msg += `Partner 1 (Initial: ${coupleState.letter1}):\n`;
+      msg += `- Color: ${getColor(coupleState.shirt1Color).name}\n`;
+      msg += `- Size: ${coupleState.shirt1Size}\n\n`;
+      msg += `Partner 2 (Initial: ${coupleState.letter2}):\n`;
+      msg += `- Color: ${getColor(coupleState.shirt2Color).name}\n`;
+      msg += `- Size: ${coupleState.shirt2Size}\n`;
+    } else {
+      msg += `Custom Name: "${nameState.name}"\n`;
+      msg += `- Color: ${getColor(nameState.color).name}\n`;
+      msg += `- Size: ${nameState.size}\n`;
+    }
+
+    msg += `\n----------------------------------------\n`;
+    msg += `Customer Details:\n`;
+    msg += `- Name: ${order.customerName}\n`;
+    msg += `- Phone: ${order.customerPhone}\n`;
+    msg += `- Address: ${order.customerAddress}\n`;
+    if (order.customerCity) msg += `- City: ${order.customerCity}\n`;
+    msg += `- Delivery: Free Island-wide Delivery\n`;
+    msg += `- Payment Method: ${order.paymentMethod}\n`;
+    if (order.notes && order.notes !== "None") msg += `- Notes: ${order.notes}\n`;
+
+    msg += `\nTotal Amount: ${CONFIG.business.currencySymbol} ${order.totalPrice.toLocaleString()}\n`;
+    msg += `----------------------------------------\n`;
+    msg += `Please confirm my order and dispatch details.`;
+
+    return msg;
+  }
+
+  /**
+   * Size Guide Modal
+   */
+  function initSizeGuideModal() {
+    const openBtns = document.querySelectorAll(".btn-open-size-guide");
+    const modal = document.getElementById("size-guide-modal");
+    const closeBtn = document.getElementById("btn-close-size-guide");
+    const tbody = document.getElementById("size-table-body");
+
+    if (tbody && CONFIG.sizeChart) {
+      tbody.innerHTML = CONFIG.sizeChart.map(r => `
+        <tr>
+          <td><strong>${r.size}</strong></td>
+          <td>${r.chestIn}"</td>
+          <td>${r.lengthIn}"</td>
+          <td>${r.chestCm} cm</td>
+          <td>${r.lengthCm} cm</td>
+        </tr>
+      `).join("");
+    }
+
+    openBtns.forEach(b => b.addEventListener("click", () => openModal(modal)));
+    if (closeBtn) closeBtn.addEventListener("click", () => closeModal(modal));
+  }
+
+  /**
+   * Modal & Toast Helpers
+   */
+  function openModal(modal) {
+    if (!modal) return;
+    modal.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal(modal) {
+    if (!modal) return;
+    modal.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  document.querySelectorAll(".modal-backdrop").forEach(overlay => {
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) closeModal(overlay);
+    });
+  });
+
+  function showToast(msg) {
+    let wrap = document.getElementById("toast-wrap");
+    if (!wrap) {
+      wrap = document.createElement("div");
+      wrap.id = "toast-wrap";
+      wrap.className = "toast-wrap";
+      document.body.appendChild(wrap);
+    }
+    const t = document.createElement("div");
+    t.className = "toast";
+    t.textContent = msg;
+    wrap.appendChild(t);
+    setTimeout(() => {
+      t.style.opacity = "0";
+      setTimeout(() => t.remove(), 300);
+    }, 3000);
+  }
+});

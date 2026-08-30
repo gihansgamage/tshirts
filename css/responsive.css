@@ -1,0 +1,116 @@
+/* ==========================================================================
+   Responsive Stylesheet for Professional Light Theme
+   ========================================================================== */
+
+@media (max-width: 960px) {
+  .package-card-body {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .package-image-container {
+    min-height: auto;
+  }
+
+  .package-card {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .intro-title {
+    font-size: 1.75rem;
+  }
+
+  .intro-subtitle {
+    font-size: 0.92rem;
+  }
+
+  .trust-highlights-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .trust-pill {
+    justify-content: center;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+  }
+
+  .package-card {
+    padding: 20px 16px;
+  }
+
+  .package-title-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .package-price {
+    font-size: 1.35rem;
+  }
+
+  .couple-images-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .image-preview-label {
+    font-size: 0.7rem;
+  }
+
+  .tshirt-preview-img {
+    padding: 4px;
+  }
+
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-box {
+    margin: 10px;
+    max-height: 94vh;
+  }
+
+  .modal-header {
+    padding: 16px;
+  }
+
+  .modal-body {
+    padding: 16px;
+  }
+
+  .color-circle {
+    width: 38px;
+    height: 38px;
+  }
+
+  .size-btn {
+    min-width: 38px;
+    padding: 10px 0;
+  }
+
+  .footer-wrapper {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .footer-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .couple-images-row {
+    grid-template-columns: 1fr;
+  }
+}
+
