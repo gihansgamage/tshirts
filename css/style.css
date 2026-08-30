@@ -281,6 +281,27 @@ body {
   margin-bottom: 8px;
 }
 
+.initial-preview-badge {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: var(--shadow-subtle);
+}
+
+.initial-preview-badge strong {
+  color: var(--text-main);
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
 .tshirt-preview-img {
   width: 100%;
   max-width: 220px;

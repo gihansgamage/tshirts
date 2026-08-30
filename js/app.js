@@ -146,21 +146,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const l2Input = document.getElementById("couple-letter-2");
     const nameInput = document.getElementById("name-input-text");
 
+    const l1Preview = document.getElementById("couple-s1-initial-preview");
+    const l2Preview = document.getElementById("couple-s2-initial-preview");
+    const namePreview = document.getElementById("name-preview-text");
+
     if (l1Input) {
       l1Input.addEventListener("input", (e) => {
-        coupleState.letter1 = (e.target.value || "").toUpperCase().slice(0, 1);
+        const val = (e.target.value || "").toUpperCase().slice(0, 1);
+        coupleState.letter1 = val;
+        if (l1Preview) l1Preview.textContent = val || "-";
       });
     }
 
     if (l2Input) {
       l2Input.addEventListener("input", (e) => {
-        coupleState.letter2 = (e.target.value || "").toUpperCase().slice(0, 1);
+        const val = (e.target.value || "").toUpperCase().slice(0, 1);
+        coupleState.letter2 = val;
+        if (l2Preview) l2Preview.textContent = val || "-";
       });
     }
 
     if (nameInput) {
       nameInput.addEventListener("input", (e) => {
-        nameState.name = (e.target.value || "").trim();
+        const val = (e.target.value || "").trim();
+        nameState.name = val;
+        if (namePreview) namePreview.textContent = val || "-";
       });
     }
   }
