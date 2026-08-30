@@ -259,67 +259,51 @@ body {
   justify-content: center;
 }
 
-.couple-images-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  width: 100%;
-}
-
-.image-preview-box {
+.couple-images-row.couple-close-pair {
   display: flex;
-  flex-direction: column;
   align-items: center;
-}
-
-.image-preview-label {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--text-secondary);
-  margin-bottom: 8px;
-}
-
-.initial-preview-badge {
-  margin-top: 10px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-light);
-  padding: 4px 14px;
-  border-radius: var(--radius-full);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  box-shadow: var(--shadow-subtle);
-}
-
-.initial-preview-badge strong {
-  color: var(--text-main);
-  font-size: 1.1rem;
-  font-weight: 800;
-}
-
-.tshirt-preview-img {
+  justify-content: center;
+  gap: 0;
   width: 100%;
-  max-width: 240px;
+  max-width: 440px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.couple-girl-img, .couple-boy-img {
+  width: 52%;
+  max-width: 230px;
   aspect-ratio: 1 / 1.05;
   object-fit: contain;
-  border-radius: var(--radius-md);
-  background-color: transparent;
-  padding: 4px;
-  transition: opacity var(--transition), transform var(--transition);
+  transition: opacity var(--transition);
+}
+
+.couple-girl-img {
+  transform: translateX(10px);
+  z-index: 1;
+}
+
+.couple-boy-img {
+  transform: translateX(-10px);
+  z-index: 2;
+}
+
+.single-center-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.single-preview-img {
+  max-width: 300px;
+  width: 100%;
+  aspect-ratio: 1 / 1.05;
+  object-fit: contain;
 }
 
 .model-3d-img {
-  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.08));
-}
-
-.single-image-box .tshirt-preview-img {
-  max-width: 290px;
-  aspect-ratio: 1 / 1.05;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.08));
 }
 
 /* Form Controls */

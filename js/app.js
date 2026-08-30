@@ -146,31 +146,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const l2Input = document.getElementById("couple-letter-2");
     const nameInput = document.getElementById("name-input-text");
 
-    const l1Preview = document.getElementById("couple-s1-initial-preview");
-    const l2Preview = document.getElementById("couple-s2-initial-preview");
-    const namePreview = document.getElementById("name-preview-text");
-
     if (l1Input) {
       l1Input.addEventListener("input", (e) => {
-        const val = (e.target.value || "").toUpperCase().slice(0, 1);
-        coupleState.letter1 = val;
-        if (l1Preview) l1Preview.textContent = val || "-";
+        coupleState.letter1 = (e.target.value || "").toUpperCase().slice(0, 1);
       });
     }
 
     if (l2Input) {
       l2Input.addEventListener("input", (e) => {
-        const val = (e.target.value || "").toUpperCase().slice(0, 1);
-        coupleState.letter2 = val;
-        if (l2Preview) l2Preview.textContent = val || "-";
+        coupleState.letter2 = (e.target.value || "").toUpperCase().slice(0, 1);
       });
     }
 
     if (nameInput) {
       nameInput.addEventListener("input", (e) => {
-        const val = (e.target.value || "").trim();
-        nameState.name = val;
-        if (namePreview) namePreview.textContent = val || "-";
+        nameState.name = (e.target.value || "").trim();
       });
     }
   }
@@ -184,8 +174,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const s1Img = document.getElementById("couple-s1-img");
     const s2Img = document.getElementById("couple-s2-img");
-    const s1Label = document.getElementById("couple-s1-color-label");
-    const s2Label = document.getElementById("couple-s2-color-label");
 
     if (s1Img && s1Obj) {
       s1Img.src = s1Obj.girlImage || s1Obj.flatImage;
@@ -195,21 +183,15 @@ document.addEventListener("DOMContentLoaded", () => {
       s2Img.src = s2Obj.boyImage || s2Obj.flatImage;
       s2Img.alt = `Partner 2 (Boy) in ${s2Obj.name} T-Shirt`;
     }
-    if (s1Label && s1Obj) s1Label.textContent = s1Obj.name;
-    if (s2Label && s2Obj) s2Label.textContent = s2Obj.name;
   }
 
   function updateNameImage() {
     const colObj = getColor(nameState.color);
     const nameImg = document.getElementById("name-preview-img");
-    const nameColorLabel = document.getElementById("name-color-label");
 
     if (nameImg && colObj) {
       nameImg.src = colObj.boyImage || colObj.girlImage || colObj.flatImage;
       nameImg.alt = `Custom ${colObj.name} T-Shirt 3D Mockup`;
-    }
-    if (nameColorLabel && colObj) {
-      nameColorLabel.textContent = colObj.name;
     }
   }
 
