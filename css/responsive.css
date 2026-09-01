@@ -66,11 +66,11 @@
   }
 
   .couple-girl-img {
-    transform: translateX(22px);
+    transform: translateX(22px) scale(var(--s1-scale, 1));
   }
 
   .couple-boy-img {
-    transform: translateX(-22px);
+    transform: translateX(-22px) scale(var(--s2-scale, 1));
   }
 
   .single-preview-img {

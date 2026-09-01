@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     packageName: "Name Printing",
     price: CONFIG.packages.name.price,
     name: "Alex",
+    gender: "boy", // "boy" or "girl"
     color: "white",
     size: "L"
   };
@@ -30,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let activeCheckoutPackage = "couple";
 
   // Init UI Components
+  initGenderSelector();
   initColorSwatches();
   initSizeSelectors();
   initInputs();
@@ -39,6 +41,40 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initial images update
   updateCoupleImages();
   updateNameImage();
+
+  /**
+   * Model / Gender Selector (Boy / Girl for Name Printing)
+   */
+  function initGenderSelector() {
+    const genderBtns = document.querySelectorAll("#name-gender-selector .gender-btn");
+    genderBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const selectedGender = btn.dataset.gender;
+        if (!selectedGender) return;
+        nameState.gender = selectedGender;
+        genderBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        updateNameImage();
+      });
+    });
+  }
+
+  /**
+   * Helper: Subtle size scale multiplier for realistic mock visual
+   * Smooth step of ~3% between sizes
+   */
+  function getSizeScale(size) {
+    const scaleMap = {
+      "XS": 0.94,
+      "S": 0.97,
+      "M": 1.0,
+      "L": 1.03,
+      "XL": 1.06,
+      "XXL": 1.09,
+      "3XL": 1.12
+    };
+    return scaleMap[size] || 1.0;
+  }
 
   /**
    * Color Swatches Generator & Click Listeners
@@ -104,16 +140,19 @@ document.addEventListener("DOMContentLoaded", () => {
     // 1. Couple Shirt 1 Sizes
     renderSizes("couple-shirt1-sizes", "couple-s1-size", (size) => {
       coupleState.shirt1Size = size;
+      updateCoupleImages();
     }, coupleState.shirt1Size);
 
     // 2. Couple Shirt 2 Sizes
     renderSizes("couple-shirt2-sizes", "couple-s2-size", (size) => {
       coupleState.shirt2Size = size;
+      updateCoupleImages();
     }, coupleState.shirt2Size);
 
     // 3. Name Printing Sizes
     renderSizes("name-sizes", "name-size", (size) => {
       nameState.size = size;
+      updateNameImage();
     }, nameState.size);
   }
 
@@ -166,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * Update Image Previews cleanly upon color change
+   * Update Image Previews cleanly upon color & size changes
    */
   function updateCoupleImages() {
     const s1Obj = getColor(coupleState.shirt1Color);
@@ -178,10 +217,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (s1Img && s1Obj) {
       s1Img.src = s1Obj.girlImage || s1Obj.flatImage;
       s1Img.alt = `Partner 1 (Girl) in ${s1Obj.name} T-Shirt`;
+      s1Img.style.setProperty("--s1-scale", getSizeScale(coupleState.shirt1Size));
     }
     if (s2Img && s2Obj) {
       s2Img.src = s2Obj.boyImage || s2Obj.flatImage;
       s2Img.alt = `Partner 2 (Boy) in ${s2Obj.name} T-Shirt`;
+      s2Img.style.setProperty("--s2-scale", getSizeScale(coupleState.shirt2Size));
     }
   }
 
@@ -190,8 +231,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const nameImg = document.getElementById("name-preview-img");
 
     if (nameImg && colObj) {
-      nameImg.src = colObj.boyImage || colObj.girlImage || colObj.flatImage;
-      nameImg.alt = `Custom ${colObj.name} T-Shirt 3D Mockup`;
+      const isGirl = nameState.gender === "girl";
+      nameImg.src = isGirl
+        ? (colObj.girlImage || colObj.flatImage)
+        : (colObj.boyImage || colObj.flatImage);
+      nameImg.alt = `Custom ${colObj.name} T-Shirt 3D Mockup (${isGirl ? "Girl" : "Boy"})`;
+
+      const scaleVal = getSizeScale(nameState.size);
+      nameImg.style.transform = `scale(${scaleVal})`;
     }
   }
 
@@ -268,10 +315,15 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     } else {
       const col = getColor(nameState.color).name;
+      const modelName = nameState.gender === "girl" ? "Girl" : "Boy";
       container.innerHTML = `
         <div class="summary-row">
           <span class="summary-label">Package:</span>
           <span class="summary-val font-bold">Name Printing (1 Shirt)</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">Model:</span>
+          <span class="summary-val">${modelName}</span>
         </div>
         <div class="summary-row">
           <span class="summary-label">Name / Text:</span>
@@ -334,7 +386,7 @@ document.addEventListener("DOMContentLoaded", () => {
       orderPayload.shirt2Color = getColor(coupleState.shirt2Color).name;
       orderPayload.shirt2Size = coupleState.shirt2Size;
     } else {
-      orderPayload.customText = `Name: ${nameState.name}`;
+      orderPayload.customText = `Name: ${nameState.name} (Model: ${nameState.gender === "girl" ? "Girl" : "Boy"})`;
       orderPayload.shirt1Color = getColor(nameState.color).name;
       orderPayload.shirt1Size = nameState.size;
       orderPayload.shirt2Color = "-";
@@ -381,6 +433,7 @@ document.addEventListener("DOMContentLoaded", () => {
       msg += `- Size: ${coupleState.shirt2Size}\n`;
     } else {
       msg += `Custom Name: "${nameState.name}"\n`;
+      msg += `- Model: ${nameState.gender === "girl" ? "Girl" : "Boy"}\n`;
       msg += `- Color: ${getColor(nameState.color).name}\n`;
       msg += `- Size: ${nameState.size}\n`;
     }
