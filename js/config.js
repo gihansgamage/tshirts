@@ -88,18 +88,31 @@ const CONFIG = {
   // Available Sizes
   sizes: ["XS", "S", "M", "L", "XL", "XXL", "3XL"],
 
+  // Size Surcharges (per t-shirt): XS, S, M = 0; L, XL = +100; XXL, 3XL = +200
+  sizeSurcharges: {
+    "XS": 0,
+    "S": 0,
+    "M": 0,
+    "L": 100,
+    "XL": 100,
+    "XXL": 200,
+    "3XL": 200
+  },
+
   // 2 Packages
   packages: {
     couple: {
       id: "couple",
       name: "Couple T-Shirt",
-      price: 5500,
+      basePrice: 5000,
+      price: 5000,
       description: "Set of 2 customized t-shirts with couple name initials, individual color selection, and sizes."
     },
     name: {
       id: "name",
       name: "Name Printing",
-      price: 3000,
+      basePrice: 2700,
+      price: 2700,
       description: "Single customized t-shirt with your custom name, color selection, and size."
     }
   },

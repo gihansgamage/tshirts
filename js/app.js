@@ -3,28 +3,28 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // State for Couple T-Shirt Package (Same matching color by default)
+  // State for Couple T-Shirt Package (Both M = 5000 base)
   const coupleState = {
     packageId: "couple",
     packageName: "Couple T-Shirt",
-    price: CONFIG.packages.couple.price,
+    price: 5000,
     letter1: "A",
     letter2: "S",
     shirt1Color: "light_pink",
     shirt1Size: "M",
     shirt2Color: "light_pink",
-    shirt2Size: "L"
+    shirt2Size: "M"
   };
 
-  // State for Name Printing Package
+  // State for Name Printing Package (M = 2700 base)
   const nameState = {
     packageId: "name",
     packageName: "Name Printing",
-    price: CONFIG.packages.name.price,
+    price: 2700,
     name: "Alex",
     gender: "boy", // "boy" or "girl"
     color: "white",
-    size: "L"
+    size: "M"
   };
 
   // Active checkout package tracker
@@ -38,9 +38,45 @@ document.addEventListener("DOMContentLoaded", () => {
   initCheckoutModal();
   initSizeGuideModal();
 
-  // Initial images update
+  // Initial calculation and images update
+  updatePricesUI();
   updateCoupleImages();
   updateNameImage();
+
+  /**
+   * Dynamic Price Calculation based on selected size tiers
+   * XS, S, M = Base price (Couple: 5000, Name: 2700)
+   * L, XL = +100 per shirt
+   * XXL, 3XL = +200 per shirt
+   */
+  function calculateCouplePrice(size1, size2) {
+    const surcharge1 = (CONFIG.sizeSurcharges && CONFIG.sizeSurcharges[size1]) || 0;
+    const surcharge2 = (CONFIG.sizeSurcharges && CONFIG.sizeSurcharges[size2]) || 0;
+    const base = (CONFIG.packages && CONFIG.packages.couple && CONFIG.packages.couple.basePrice) || 5000;
+    return base + surcharge1 + surcharge2;
+  }
+
+  function calculateNamePrice(size) {
+    const surcharge = (CONFIG.sizeSurcharges && CONFIG.sizeSurcharges[size]) || 0;
+    const base = (CONFIG.packages && CONFIG.packages.name && CONFIG.packages.name.basePrice) || 2700;
+    return base + surcharge;
+  }
+
+  function updatePricesUI() {
+    // 1. Update couple state & UI badge
+    coupleState.price = calculateCouplePrice(coupleState.shirt1Size, coupleState.shirt2Size);
+    const couplePriceEl = document.getElementById("couple-price-display");
+    if (couplePriceEl) {
+      couplePriceEl.textContent = `${CONFIG.business.currencySymbol} ${coupleState.price.toLocaleString()}`;
+    }
+
+    // 2. Update name state & UI badge
+    nameState.price = calculateNamePrice(nameState.size);
+    const namePriceEl = document.getElementById("name-price-display");
+    if (namePriceEl) {
+      namePriceEl.textContent = `${CONFIG.business.currencySymbol} ${nameState.price.toLocaleString()}`;
+    }
+  }
 
   /**
    * Model / Gender Selector (Boy / Girl for Name Printing)
@@ -141,18 +177,21 @@ document.addEventListener("DOMContentLoaded", () => {
     renderSizes("couple-shirt1-sizes", "couple-s1-size", (size) => {
       coupleState.shirt1Size = size;
       updateCoupleImages();
+      updatePricesUI();
     }, coupleState.shirt1Size);
 
     // 2. Couple Shirt 2 Sizes
     renderSizes("couple-shirt2-sizes", "couple-s2-size", (size) => {
       coupleState.shirt2Size = size;
       updateCoupleImages();
+      updatePricesUI();
     }, coupleState.shirt2Size);
 
     // 3. Name Printing Sizes
     renderSizes("name-sizes", "name-size", (size) => {
       nameState.size = size;
       updateNameImage();
+      updatePricesUI();
     }, nameState.size);
   }
 
@@ -467,15 +506,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const tbody = document.getElementById("size-table-body");
 
     if (tbody && CONFIG.sizeChart) {
-      tbody.innerHTML = CONFIG.sizeChart.map(r => `
-        <tr>
-          <td><strong>${r.size}</strong></td>
-          <td>${r.chestIn}"</td>
-          <td>${r.lengthIn}"</td>
-          <td>${r.chestCm} cm</td>
-          <td>${r.lengthCm} cm</td>
-        </tr>
-      `).join("");
+      tbody.innerHTML = CONFIG.sizeChart.map(r => {
+        const surcharge = (CONFIG.sizeSurcharges && CONFIG.sizeSurcharges[r.size]) || 0;
+        const priceBadge = surcharge > 0 
+          ? `<span style="display: inline-block; padding: 2px 8px; background-color: #FEF3C7; color: #92400E; border-radius: 4px; font-weight: 700; font-size: 0.8rem;">+ Rs. ${surcharge}</span>`
+          : `<span style="color: var(--text-secondary); font-size: 0.82rem;">Standard</span>`;
+
+        return `
+          <tr>
+            <td><strong>${r.size}</strong></td>
+            <td>${r.chestIn}"</td>
+            <td>${r.lengthIn}"</td>
+            <td>${r.chestCm} cm</td>
+            <td>${r.lengthCm} cm</td>
+            <td>${priceBadge}</td>
+          </tr>
+        `;
+      }).join("");
     }
 
     openBtns.forEach(b => b.addEventListener("click", () => openModal(modal)));
