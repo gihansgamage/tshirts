@@ -80,28 +80,42 @@ body {
 .brand-logo {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--text-main);
+  gap: 12px;
   text-decoration: none;
-  letter-spacing: -0.5px;
 }
 
-.brand-logo-badge {
-  background-color: var(--primary);
-  color: #FFFFFF;
-  font-size: 0.85rem;
-  font-weight: 800;
-  padding: 4px 8px;
-  border-radius: var(--radius-sm);
+.brand-logo-img {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.08));
+  transition: transform var(--transition);
+}
+
+.brand-logo:hover .brand-logo-img {
+  transform: scale(1.05);
+}
+
+.brand-text-col {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
 }
 
 .brand-name-sinhala {
   font-family: 'Noto Sans Sinhala', -apple-system, sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   font-weight: 800;
+  color: var(--text-main);
   letter-spacing: -0.25px;
+}
+
+.brand-tagline {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-secondary);
 }
 
 .header-actions {
@@ -569,6 +583,19 @@ body {
   color: var(--text-secondary);
 }
 
+.footer-brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
+}
+
 .footer-nav {
   display: flex;
   gap: 20px;
@@ -633,6 +660,18 @@ body {
   justify-content: space-between;
   padding: 20px 24px;
   border-bottom: 1px solid var(--border-light);
+}
+
+.modal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-logo-img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
 }
 
 .modal-title {

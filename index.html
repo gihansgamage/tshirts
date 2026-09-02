@@ -11,6 +11,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Sinhala:wght@600;700;800&display=swap" rel="stylesheet">
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
@@ -21,8 +24,11 @@
   <header class="site-header">
     <div class="container header-wrapper">
       <a href="#" class="brand-logo">
-        <span class="brand-logo-badge">Q</span>
-        <span class="brand-name-sinhala">කොලිටි</span>
+        <img src="assets/logo.png" alt="කොලිටි Logo" class="brand-logo-img">
+        <div class="brand-text-col">
+          <span class="brand-name-sinhala">කොලිටි</span>
+          <span class="brand-tagline">T-Shirt Printing</span>
+        </div>
       </a>
 
       <div class="header-actions">
@@ -226,8 +232,11 @@
   <!-- Clean Footer -->
   <footer class="site-footer">
     <div class="container footer-wrapper">
-      <div>
-        <strong>කොලිටි</strong> &mdash; Direct WhatsApp Orders (+94 77 324 8579)
+      <div class="footer-brand-wrap">
+        <img src="assets/logo.png" alt="කොලිටි Logo" class="footer-logo-img">
+        <div>
+          <strong>කොලිටි</strong> &mdash; Direct WhatsApp Orders (+94 77 324 8579)
+        </div>
       </div>
       <div class="footer-nav">
         <button type="button" class="btn-open-size-guide">Size Chart</button>
@@ -241,7 +250,10 @@
   <div class="modal-backdrop" id="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="modal-checkout-title">
     <div class="modal-box">
       <div class="modal-header">
-        <h3 class="modal-title" id="modal-checkout-title">Order Details</h3>
+        <div class="modal-title-wrap">
+          <img src="assets/logo.png" alt="Logo" class="modal-logo-img">
+          <h3 class="modal-title" id="modal-checkout-title">Order Details</h3>
+        </div>
         <button type="button" class="btn-close-modal" id="btn-close-checkout" aria-label="Close">✕</button>
       </div>
       <div class="modal-body">
