@@ -272,33 +272,35 @@ body {
   justify-content: center;
 }
 
-/* Couple Closely Overlapping Pair */
+/* Couple Closely Overlapping Pair - Girl in front of Boy */
 .couple-images-row.couple-close-pair {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 540px;
+  max-width: 520px;
   margin: 0 auto;
   position: relative;
 }
 
 .couple-girl-img, .couple-boy-img {
-  width: 58%;
-  max-width: 300px;
+  width: 60%;
+  max-width: 310px;
   aspect-ratio: 1 / 1.05;
   object-fit: contain;
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity var(--transition);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity var(--transition), filter var(--transition);
 }
 
 .couple-girl-img {
-  transform: translateX(38px) scale(var(--s1-scale, 1));
-  z-index: 2;
+  transform: translateX(52px) scale(var(--s1-scale, 1));
+  z-index: 3;
+  filter: drop-shadow(6px 14px 26px rgba(0, 0, 0, 0.16));
 }
 
 .couple-boy-img {
-  transform: translateX(-38px) scale(var(--s2-scale, 1));
+  transform: translateX(-52px) scale(var(--s2-scale, 1));
   z-index: 1;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.10));
 }
 
 .single-center-box {

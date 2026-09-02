@@ -69,16 +69,20 @@
   }
 
   .couple-girl-img, .couple-boy-img {
-    width: 58%;
-    max-width: 200px;
+    width: 60%;
+    max-width: 210px;
   }
 
   .couple-girl-img {
-    transform: translateX(22px) scale(var(--s1-scale, 1));
+    transform: translateX(32px) scale(var(--s1-scale, 1));
+    z-index: 3;
+    filter: drop-shadow(4px 10px 20px rgba(0, 0, 0, 0.16));
   }
 
   .couple-boy-img {
-    transform: translateX(-22px) scale(var(--s2-scale, 1));
+    transform: translateX(-32px) scale(var(--s2-scale, 1));
+    z-index: 1;
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.10));
   }
 
   .single-preview-img {
