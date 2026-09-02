@@ -14,30 +14,26 @@ const GoogleSheetsSync = {
     // Always save local backup in browser
     this.saveLocalBackup(orderPayload);
 
-    if (!webAppUrl) {
+    if (!webAppUrl || webAppUrl.indexOf("script.google.com") === -1) {
       console.warn("Google Sheets Web App URL not configured yet. Saved to local storage.");
       return {
         success: true,
         localOnly: true,
-        message: "Order saved locally. (Connect your Google Sheet in settings to sync to Google Drive)"
+        message: "Order saved locally."
       };
     }
 
     try {
-      // Send as POST request using URL-encoded form data or JSON
-      // Mode 'no-cors' is typically used for Google Apps Script Web Apps when handling cross-origin POSTs without redirect issues
-      const formData = new URLSearchParams();
-      for (const [key, value] of Object.entries(orderPayload)) {
-        formData.append(key, typeof value === "object" ? JSON.stringify(value) : value);
-      }
+      // Send as POST request using text/plain (avoids CORS preflight) with JSON body
+      const jsonBody = JSON.stringify(orderPayload);
 
       await fetch(webAppUrl, {
         method: "POST",
         mode: "no-cors",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
+          "Content-Type": "text/plain;charset=utf-8"
         },
-        body: formData.toString()
+        body: jsonBody
       });
 
       return {

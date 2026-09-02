@@ -380,13 +380,15 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     if (isCouple) {
-      orderPayload.customText = `Letters: ${coupleState.letter1} & ${coupleState.letter2}`;
+      orderPayload.model = "Girl & Boy";
+      orderPayload.customText = `Initials: ${coupleState.letter1} & ${coupleState.letter2}`;
       orderPayload.shirt1Color = getColor(coupleState.shirt1Color).name;
       orderPayload.shirt1Size = coupleState.shirt1Size;
       orderPayload.shirt2Color = getColor(coupleState.shirt2Color).name;
       orderPayload.shirt2Size = coupleState.shirt2Size;
     } else {
-      orderPayload.customText = `Name: ${nameState.name} (Model: ${nameState.gender === "girl" ? "Girl" : "Boy"})`;
+      orderPayload.model = nameState.gender === "girl" ? "Girl" : "Boy";
+      orderPayload.customText = `Name: ${nameState.name || "Custom"}`;
       orderPayload.shirt1Color = getColor(nameState.color).name;
       orderPayload.shirt1Size = nameState.size;
       orderPayload.shirt2Color = "-";
