@@ -30,6 +30,12 @@
     font-size: 1.25rem;
   }
 
+  .header-whatsapp-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    gap: 6px;
+  }
+
   .intro-title {
     font-size: 1.75rem;
   }
