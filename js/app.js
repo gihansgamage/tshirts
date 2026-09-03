@@ -38,6 +38,13 @@ document.addEventListener("DOMContentLoaded", () => {
   initCheckoutModal();
   initSizeGuideModal();
 
+  // Header WhatsApp link sync
+  const headerWhatsappLink = document.querySelector(".header-whatsapp-btn");
+  if (headerWhatsappLink && window.CONFIG && CONFIG.business && CONFIG.business.whatsappNumber) {
+    const cleanNum = CONFIG.business.whatsappNumber.replace(/[^0-9]/g, "");
+    headerWhatsappLink.href = `https://api.whatsapp.com/send?phone=${cleanNum}`;
+  }
+
   // Initial calculation and images update
   updatePricesUI();
   updateCoupleImages();

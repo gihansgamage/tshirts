@@ -19,8 +19,8 @@
   --primary: #0F172A;
   --primary-hover: #1E293B;
 
-  --whatsapp: #16A34A;
-  --whatsapp-hover: #15803D;
+  --whatsapp: #25D366;
+  --whatsapp-hover: #1EBE5D;
 
   --radius-sm: 6px;
   --radius-md: 10px;
@@ -128,21 +128,21 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background-color: #128C7E;
+  background-color: var(--whatsapp);
   color: #FFFFFF;
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
-  padding: 8px 16px;
+  padding: 8px 18px;
   border-radius: var(--radius-full);
-  box-shadow: 0 2px 8px rgba(18, 140, 126, 0.25);
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
   transition: all var(--transition);
 }
 
 .header-whatsapp-btn:hover {
-  background-color: #075E54;
+  background-color: var(--whatsapp-hover);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(18, 140, 126, 0.35);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.42);
   color: #FFFFFF;
 }
 
