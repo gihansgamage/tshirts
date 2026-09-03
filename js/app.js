@@ -286,6 +286,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
+   * Helper to detect mobile device
+   */
+  function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+           (navigator.maxTouchPoints > 1 && window.innerWidth <= 1024);
+  }
+
+  /**
    * Checkout Modal & WhatsApp Order Flow
    */
   function initCheckoutModal() {
@@ -294,10 +302,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const checkoutModal = document.getElementById("checkout-modal");
     const closeCheckoutBtn = document.getElementById("btn-close-checkout");
     const orderForm = document.getElementById("order-checkout-form");
+    const closeSuccessBtn = document.getElementById("btn-success-close");
 
     if (coupleCheckoutBtn) {
       coupleCheckoutBtn.addEventListener("click", () => {
         activeCheckoutPackage = "couple";
+        resetCheckoutModalView();
         populateModalSummary("couple");
         openModal(checkoutModal);
       });
@@ -306,21 +316,41 @@ document.addEventListener("DOMContentLoaded", () => {
     if (nameCheckoutBtn) {
       nameCheckoutBtn.addEventListener("click", () => {
         activeCheckoutPackage = "name";
+        resetCheckoutModalView();
         populateModalSummary("name");
         openModal(checkoutModal);
       });
     }
 
     if (closeCheckoutBtn) {
-      closeCheckoutBtn.addEventListener("click", () => closeModal(checkoutModal));
+      closeCheckoutBtn.addEventListener("click", () => {
+        closeModal(checkoutModal);
+        resetCheckoutModalView();
+      });
+    }
+
+    if (closeSuccessBtn) {
+      closeSuccessBtn.addEventListener("click", () => {
+        closeModal(checkoutModal);
+        resetCheckoutModalView();
+      });
     }
 
     if (orderForm) {
-      orderForm.addEventListener("submit", async (e) => {
+      orderForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        await handleOrderSubmission();
+        handleOrderSubmission();
       });
     }
+  }
+
+  function resetCheckoutModalView() {
+    const summaryBox = document.getElementById("modal-summary-content");
+    const orderForm = document.getElementById("order-checkout-form");
+    const successView = document.getElementById("order-success-view");
+    if (summaryBox) summaryBox.style.display = "block";
+    if (orderForm) orderForm.style.display = "block";
+    if (successView) successView.style.display = "none";
   }
 
   function populateModalSummary(pkgType) {
@@ -380,7 +410,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  async function handleOrderSubmission() {
+  function handleOrderSubmission() {
     const nameInput = document.getElementById("customer-name");
     const phoneInput = document.getElementById("customer-phone");
     const addressInput = document.getElementById("customer-address");
@@ -434,28 +464,52 @@ document.addEventListener("DOMContentLoaded", () => {
       orderPayload.shirt2Size = "-";
     }
 
-    // 1. Sync to Google Sheets
-    try {
-      await GoogleSheetsSync.syncOrder(orderPayload);
-    } catch (err) {
-      console.warn("Google Sheets sync:", err);
-    }
+    // 1. Synchronously save order to local storage backup
+    GoogleSheetsSync.saveLocalBackup(orderPayload);
 
-    // 2. Generate clean WhatsApp message without emojis
+    // 2. Fire Google Sheets sync in background without blocking UI or user gesture
+    GoogleSheetsSync.syncOrder(orderPayload).catch(err => {
+      console.warn("Google Sheets background sync:", err);
+    });
+
+    // 3. Generate clean WhatsApp message & universal mobile-friendly URL
     const whatsappMsg = buildCleanWhatsAppMessage(orderPayload, isCouple);
-    const whatsappUrl = `https://wa.me/${CONFIG.business.whatsappNumber}?text=${encodeURIComponent(whatsappMsg)}`;
+    const rawNumber = CONFIG.business.whatsappNumber || "94773248579";
+    const cleanNumber = rawNumber.replace(/\D/g, "");
+    const encodedMsg = encodeURIComponent(whatsappMsg);
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${cleanNumber}&text=${encodedMsg}`;
 
-    // Close modal
-    closeModal(document.getElementById("checkout-modal"));
+    // 4. Update Modal UI to Success & WhatsApp direct fallback View
+    const summaryBox = document.getElementById("modal-summary-content");
+    const orderForm = document.getElementById("order-checkout-form");
+    const successView = document.getElementById("order-success-view");
+    const successBadge = document.getElementById("success-order-id-badge");
+    const successLink = document.getElementById("success-whatsapp-link");
 
-    // Reset form
-    document.getElementById("order-checkout-form").reset();
+    if (summaryBox) summaryBox.style.display = "none";
+    if (orderForm) {
+      orderForm.style.display = "none";
+      orderForm.reset();
+    }
+    if (successBadge) successBadge.textContent = `Order ID: ${orderPayload.orderId}`;
+    if (successLink) successLink.href = whatsappUrl;
+    if (successView) successView.style.display = "block";
 
-    // Show toast and redirect
-    showToast("Order recorded. Redirecting to WhatsApp...");
-    setTimeout(() => {
-      window.open(whatsappUrl, "_blank");
-    }, 300);
+    showToast("Connecting to WhatsApp...");
+
+    // 5. Open WhatsApp using Mobile-Optimized Strategy during the active User Gesture
+    const isMobile = isMobileDevice();
+
+    if (isMobile) {
+      // Direct navigation launches WhatsApp app directly via Universal Links / Android Intent
+      window.location.href = whatsappUrl;
+    } else {
+      // Desktop: Open in new tab; fallback to location if blocked
+      const newTab = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+      if (!newTab || newTab.closed || typeof newTab.closed === "undefined") {
+        window.location.href = whatsappUrl;
+      }
+    }
   }
 
   function buildCleanWhatsAppMessage(order, isCouple) {

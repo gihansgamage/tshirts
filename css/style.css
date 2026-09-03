@@ -821,3 +821,81 @@ body {
   box-shadow: var(--shadow-modal);
   transition: opacity 0.3s ease;
 }
+
+/* Order Success / WhatsApp Fallback View */
+.order-success-view {
+  text-align: center;
+  padding: 12px 0 8px;
+}
+
+.success-icon-wrap {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #DCFCE7;
+  color: #16A34A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+}
+
+.success-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.success-order-id {
+  display: inline-block;
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 4px 12px;
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.success-desc {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+  line-height: 1.4;
+}
+
+.btn-success-whatsapp {
+  text-decoration: none;
+  font-size: 1.05rem;
+  padding: 14px 20px;
+  margin-bottom: 12px;
+}
+
+.success-fallback-note {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.btn-success-close {
+  background: none;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 8px 18px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.btn-success-close:hover {
+  background-color: var(--bg-subtle);
+  color: var(--text-main);
+  border-color: var(--border-focus);
+}
+

@@ -33,7 +33,8 @@ const GoogleSheetsSync = {
         headers: {
           "Content-Type": "text/plain;charset=utf-8"
         },
-        body: jsonBody
+        body: jsonBody,
+        keepalive: true
       });
 
       return {
